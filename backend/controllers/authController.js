@@ -1,4 +1,4 @@
-const User = require('../models/User'); // Import the User Model you created
+const User = require('../models/user'); // Import the User Model you created
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -17,10 +17,10 @@ exports.register = async (req, res) => {
         user = new User ({
             username,
             email,
-            password  // Password will be hashed before saving (see Mongoose hook documentation, or hash it here)
+            password  // Password will be hashed before saving
         });
 
-        // 3. Hash Password (Implementation detail: We'll hash here for simplicity, or use Mongoose pre-save hook)
+        // 3. Hash Password
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password, salt);
 
@@ -30,18 +30,19 @@ exports.register = async (req, res) => {
         // 5. Create the JWT Payload
         const payload = {
             user: {
-                id: user.id  // Mongoose automatically creates a unique ID
+                id: user.id  // Mongoose automatically creates a unique ID
             }
         };
 
         // 6. Sign the JWT and send it back
+        console.log("Secret used for signing:", process.env.JWT_SECRET);
         jwt.sign(
             payload,
             process.env.JWT_SECRET,
-            { expiresIn: '1h'},  // Token expires in 1 hour
+            { expiresIn: '1h'},  // Token expires in 1 hour
             (err, token) => {
                 if (err) throw err;
-                res.json({ token });   // Send back the token for the client to store
+                res.json({ token });   // Send back the token for the client to store
             }
         );
     } catch (err) {
@@ -75,6 +76,7 @@ exports.login = async (req, res) => {
         };
 
         // 4. Sign the JWT and send it back
+        console.log("Secret used for signing:", process.env.JWT_SECRET); // <--- ADDED DEBUG LOG HERE
         jwt.sign(
             payload,
             process.env.JWT_SECRET,
@@ -86,7 +88,7 @@ exports.login = async (req, res) => {
         );
 
     } catch (err) {
-        console.err(err.message);
+        console.error(err.message);
         res.status(500).send('Server Error during login');
     }
 };

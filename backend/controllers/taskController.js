@@ -1,9 +1,9 @@
 const Task = require('../models/Task');
 
 //Get all tasks for the authenticated user
-exports.getTask = async (req, res) => {
+exports.getTasks = async (req, res) => {
     try {
-        const tasks = await Task.find({ user: req.user.body }).sort({ createdAt: -1 });
+        const tasks = await Task.find({ user: req.user.id }).sort({ createdAt: -1 });
         res.status(200).json(tasks);
     } catch (err) {
         res.status(500).json({ message: 'Server Error '});
@@ -23,10 +23,10 @@ exports.createTask = async (req, res) => {
             user: req.user.id,  // Automatically assign the authenticated user's ID
         });
 
-        const createTask = await task.save();
-        res.status(201).json(createdTask);
+        const mewTask = await task.save();
+        res.status(201).json(newTask);
     } catch (err) {
-        res.status(400).json({ message: err.maggage });
+        res.status(400).json({ message: err.message });
     }
 };
 
@@ -61,7 +61,7 @@ exports.deleteTask = async (req, res) => {
         const task = await Task.findById(req.params.id);
 
         if (!task) {
-            res.status(404).json({ message: 'Tasl not found' })
+            res.status(404).json({ message: 'Task not found' })
         }
 
         //SECURITY CHECK: Ensure the task belongs to the authenticated user

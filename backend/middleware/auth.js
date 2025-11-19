@@ -1,13 +1,14 @@
 const jwt = require('jsonwebtoken');
-const User = requier('../models/User');
+const User = require('../models/user');
 
 // Middleware function to protect routes
 const protect = async (req, res, next) => {
     let token;
 
-    if (req.headers.authorization && req.headers.authorization.startWith('Bearer')) {
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
-            token = req.headers.authorization.split(' ')[1];
+            token = req.headers.authorization.split(' ')[1].trim();
+            console.log("Secret used for verification:", process.env.JWT_SECRET);
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             req.user = await User.findById(decoded.user.id).select('-password');
 
