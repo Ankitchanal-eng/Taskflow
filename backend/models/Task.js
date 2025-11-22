@@ -5,18 +5,21 @@ const TaskSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add a title'],
         trim: true,
-        maxlength: [100, 'Title can not be more then 100 characters']
-    },
-    // Detailed description (optional kro to thik nhi to no problem)
-    description: {
-        type: String,
-        maxlength: [500, 'Description cannot be more then 500 characters']
+        maxlength: [100, 'Title cannot be more than 100 characters']
     },
 
+    // Description optional
+    description: {
+        type: String,
+        maxlength: [500, 'Description cannot be more than 500 characters'],
+        default: ""
+    },
+
+    // Match frontend: 'pending', 'in progress', 'completed'
     status: {
         type: String,
-        enum: ['pending', 'in progress', 'complete'],
-        default: 'Pending'
+        enum: ['pending', 'in progress', 'completed'],
+        default: 'pending'
     },
 
     user: {

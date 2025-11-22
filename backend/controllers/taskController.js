@@ -16,6 +16,8 @@ exports.getTasks = async (req, res) => {
 // Create a new task
 exports.createTask = async (req, res) => {
     try {
+        console.log("BODY RECEIVED BY BACKEND:", req.body);
+        console.log("USER FROM PROTECT:", req.user);
         const { title, description, status } = req.body;
 
         // FIX 1: Add explicit validation to handle missing 'title' from frontend.
