@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+const LIVE_API_URL = '[https://taskflow-m3nm.onrender.com/]';
+
 // Create a custom instance of Axios with the backend base URL
 const api = axios.create({
-    baseURL: 'http://localhost:3001/api',
+    baseURL: 'baseURL: LIVE_API_URL, // <-- THIS IS THE CRITICAL CHANGE',
     headers: {
         'Content-Type': 'application/json',
     }
