@@ -1,4 +1,4 @@
-const User = require('../models/userModel'); // Import the User Model you created
+const User = require('../models/User'); // Import the User Model you created
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
