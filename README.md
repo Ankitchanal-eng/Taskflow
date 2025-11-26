@@ -1,78 +1,139 @@
-## 🚀 MERN TaskFlow – Secure & Dynamic Task Management System
+# 🚀 TaskFlow – MERN Task Management App
 
-> A full-stack task management application built with the **MERN Stack** (MongoDB, Express, React, Node.js). This project showcases professional-grade skills in secure **JWT authentication**, **user data isolation**, full **CRUD API design**, and dynamic state management.
+TaskFlow is a full‑stack task management application built with the **MERN stack** (MongoDB, Express, React, Node.js).  
+It provides secure authentication, user‑scoped tasks, and a clean dashboard UI for managing everyday work.
 
-## 🎯 Project Goal
+## 🌐 Live Demo
 
-The primary objective of TaskFlow is to serve as a **feature-rich, production-ready portfolio piece** that demonstrates a strong command over building secure, scalable, and responsive full-stack applications.
+- **Frontend (Vercel)**: https://task-flow-app-roan.vercel.app  
+- **Backend API (Render)**: https://taskflow-m3nm.onrender.com  
 
-## ✨ Key Features & Technical Highlights
+> Register a new account or log in and start creating tasks
 
-This application implements critical modern web development features:
+## ✨ Features
 
-### 🔒 Security and Data Integrity
+- 🔐 **JWT Authentication** – Register, login, and stay authenticated with stateless JWT tokens.  
+- 🧑‍💻 **User‑Scoped Tasks** – Each user can only access, update, and delete their own tasks.  
+- ✅ **Full Task CRUD** – Create, read, update, and delete tasks.  
+- 🔍 **Status Filtering** – Filter by `All`, `Pending`, `In Progress`, and `Completed`.  
+- 📱 **Responsive UI** – Dashboard layout adapts to mobile, tablet, and desktop.
 
-  * **JWT Authentication:** Implemented a robust, **stateless authentication system** using **JSON Web Tokens (JWT)** for secure user sessions.
-  * **Password Security:** Protects user credentials using **bcryptjs** for industry-standard hashing before storage.
-  * **Strict Data Isolation:** Enforces **data scoping** via Express middleware and Mongoose queries to guarantee users can only access, modify, or delete tasks that belong to their specific account, preventing cross-user data exposure.
-  * **Private Routing:** Frontend utilizes **React Router** to implement guarded routes, restricting dashboard access exclusively to authenticated users.
+## 🧱 Tech Stack
 
-### ⚙️ Core Application Functionality
 
-  * **Task CRUD API:** Full **Create, Read, Update, and Delete** (CRUD) functionality for tasks, secured entirely at the API level.
-  * **Dynamic State Management:** Tasks track key properties like title, description, and status (`Pending`, `In Progress`, `Complete`).
-  * **Filtering and Sorting:** Allows users to filter tasks by status and sort them by creation date or due date for effective workflow management.
+| Layer     | Technologies                          |
+|-|-|
+| Frontend | React, Vite, React Router, Axios      |
+| Backend  | Node.js, Express.js                   |
+| Database | MongoDB Atlas, Mongoose               |
+| Auth     | JWT, bcryptjs                         |
+| Deploy   | Vercel (frontend), Render (backend)   |
 
-### 💻 User Interface (UI/UX)
+## 📂 Project Structure
 
-  * **Responsive Design:** Built with modern CSS/UI libraries (e.g., Tailwind CSS or styled-components) to ensure a clean, intuitive interface that adapts seamlessly across **mobile, tablet, and desktop** screen sizes.
+Taskflow/
+├── backend/
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   └── taskController.js
+│   ├── middleware/
+│   │   └── auth.js
+│   ├── models/
+│   │   ├── user.js
+│   │   └── Task.js
+│   ├── routes/
+│   │   ├── auth.js
+│   │   └── tasks.js
+│   ├── server.js
+│   └── package.json
+│
+└── frontend/
+    ├── src/
+    │   ├── api/
+    │   │   └── axios.js
+    │   ├── pages/
+    │   │   ├── Login.jsx
+    │   │   ├── Register.jsx
+    │   │   └── Dashboard.jsx
+    │   ├── App.jsx
+    │   └── main.jsx
+    ├── index.html
+    └── package.json
 
-## 💻 Tech Stack
+## ⚙️ Getting Started (Local)
 
-| Category | Technology | Purpose |
-| :--- | :--- | :--- |
-| **Frontend** | React, React Router DOM, Axios | Dynamic, component-based UI and client-side routing/API requests. |
-| **Backend** | Node.js, Express.js | Fast, scalable server environment and robust API handling. |
-| **Database** | MongoDB Atlas, Mongoose | Cloud-hosted NoSQL data storage and Object Data Modeling (ODM). |
-| **Security** | JWT, bcryptjs | Token creation/verification and secure password hashing. |
-| **Testing** | Postman/Thunder Client | API testing and validation. |
+### 1️⃣ Prerequisites
+- Node.js (v18+ recommended)  
+- npm or yarn  
+- MongoDB Atlas (or local MongoDB)
 
-## 🛠️ Getting Started (Local Development)
+### 2️⃣ Clone the Repo
+git clone https://github.com/Ankitchanal-eng/Taskflow.git
+cd Taskflow
 
-This section details how a developer can get your project running locally.
+### 3️⃣ Backend Setup
+cd backend
+npm install
 
-### Prerequisites
+Create a `.env` file in `backend/`:
 
-  * Node.js (v18+)
-  * MongoDB Atlas Account
-  * API Testing tool (Postman or Thunder Client)
+MONGO_URL=your_mongodb_connection_string
+JWT_SECRET=your_super_secure_jwt_secret
+PORT=3001
 
-### Installation
+Run the backend:
+npm start
+# or
+node server.js
+Backend runs on: `http://localhost:3001`
 
-1.  **Clone the repository:**
+### 4️⃣ Frontend Setup
+cd ../frontend
+npm install
 
-    ```bash
-    git clone YOUR_REPO_URL mern-taskflow
-    cd mern-taskflow
-    ```
+Create a `.env` (optional but recommended):
 
-2.  **Setup Backend:**
+VITE_API_URL=http://localhost:3001
 
-    ```bash
-    cd backend
-    npm install
-    # Create a .env file with your MONGO_URI and JWT_SECRET
-    node server.js
-    ```
+Run the dev server:
 
-3.  **Setup Frontend:**
+npm run dev
+Frontend runs on: `http://localhost:5173`
 
-    ```bash
-    cd ../frontend
-    npm install
-    npm run dev 
-    ```
+## 🔌 API Overview
+Base URL (local):
+http://localhost:3001/api
+Base URL (production):
+https://taskflow-m3nm.onrender.com/api
 
------
+### Auth
+- `POST /auth/register` – Register new user 
+- `POST /auth/login` – Login and receive JWT  
+Both return:
+{ "token": "your_jwt_token" }
+Use token in headers:
+Authorization: Bearer <token>
 
-**Next Steps:** Full-stack development, deployment preparation, and feature refinement.
+### Tasks (Protected)
+- `GET /tasks` – Get all tasks for logged‑in user  
+- `POST /tasks` – Create task `{ "title": "...", "status": "pending" }`  
+- `PUT /tasks/:id` – Update task title/status  
+- `DELETE /tasks/:id` – Delete task  
+
+## 🚀 Deployment Notes
+
+- **Frontend** deployed on **Vercel** from `frontend/` directory (Vite build).  
+- **Backend** deployed on **Render**, connected to MongoDB Atlas.  
+- CORS configured to allow both:
+  - `https://task-flow-app-roan.vercel.app`
+  - `http://localhost:5173`
+
+## 📌 Roadmap / Future Work
+- Task descriptions, due dates, and priority levels  
+- Profile page (update email, change password)  
+- Dark mode  
+- Unit and integration tests (Jest, React Testing Library, Supertest)
+
+## 👤 Author
+
+**Ankit Chanal** – Full‑stack developer & aspiring entrepreneur building production‑style MERN apps and experimenting with SaaS ideas.
