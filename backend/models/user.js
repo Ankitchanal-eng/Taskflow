@@ -1,15 +1,16 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
-const ObjectId = mongoose.Types.ObjectId;
 
-const userSchema = new Schema ({
-    username: { type: String, },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    date: {type: Date, default: Date.now }
+const userSchema = new Schema({
+  username: { type: String },
+  email:    { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  date:     { type: Date, default: Date.now }
 });
 
-const userModel = mongoose.model("User", userSchema);
+// ✅ Use existing model if it exists, otherwise create it
+const userModel =
+  mongoose.models.User || mongoose.model("User", userSchema);
 
 module.exports = userModel;
